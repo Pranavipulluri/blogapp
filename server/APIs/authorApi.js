@@ -13,14 +13,14 @@ require('dotenv').config()
 authorApp.post("/author",expressAsyncHandler(createUserOrAuthor))
 
 //create a new article
-authorApp.post("/article",expressAsyncHandler(async(req,res)=>{
-
-    //get new article obj from req
-    const newArticleObj=req.body;
-    const newArticle=new Article(newArticleObj);
-    const articleObj=await newArticle.save();
-    res.status(201).send({message:"article published",payload:articleObj})
-})) 
+// Create a new article
+authorApp.post("/article", expressAsyncHandler(async (req, res) => {
+    const newArticleObj = req.body;
+    const newArticle = new Article(newArticleObj);
+    const articleObj = await newArticle.save();
+    res.status(201).send({ message: "article published", payload: articleObj });
+  }));
+  
 
 
 //read all articles

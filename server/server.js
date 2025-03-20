@@ -9,13 +9,12 @@ const cors=require('cors')
 app.use(cors())
 
 const port=process.env.port || 4000
-mongoose.connect(process.env.DBURL)
-.then(
-    ()=>{
-        app.listen(port,()=>console.log(`server listening on port ${port}..`))
-        console.log("DB connection success")
-})
-.catch(err=>console.log("Error in DB connection ",err))
+
+mongoose.connect('mongodb://localhost:27017/blog-app')
+  .then(() => {console.log('MongoDB connected successfully')
+    app.listen(port,()=>console.log(`server listening on port ${port}..`))
+  })
+  .catch(err => console.error('MongoDB connection error:', err));
 //body parser middleware
 app.use(exp.json())
 //connect API routes

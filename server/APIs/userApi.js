@@ -5,9 +5,16 @@ const expressAsyncHandler=require('express-async-handler');
 const createUserOrAuthor=require('./createUserOrAuthor')
 const Article=require('../models/articleModel')
 // userApp.use(exp.json())
-//API
-//create new user
-userApp.post("/user",expressAsyncHandler(createUserOrAuthor));
+userApp.post("/author", expressAsyncHandler(createUserOrAuthor)); // Create new author
+userApp.post("/user", expressAsyncHandler(createUserOrAuthor)); // Create new user
+userApp.post("/author-api/articles", expressAsyncHandler(async (req, res) => {
+    const newArticle = req.body;
+    const article = new Article(newArticle);
+    const savedArticle = await article.save();
+    res.status(201).send({ message: "article created", payload: savedArticle });
+})); // Create new article
+
+
 
 //add comment
 userApp.put("/comment/:articleId",expressAsyncHandler(async(req,res)=>{
